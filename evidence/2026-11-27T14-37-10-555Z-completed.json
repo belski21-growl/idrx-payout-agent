@@ -1,0 +1,74 @@
+{
+  "agent": "idrx-payout-agent",
+  "repo": "belski21-growl/idrx-payout-agent",
+  "chainId": 42220,
+  "taker": "0x8F3E972f8006aE76D55385cF9Df8bF86160983AA",
+  "recipient": "0xAC9BD03F89C71A028107809432F27CbE16DF1aF8",
+  "sellAmountUsdt": "1.00",
+  "sellAtomic": "1000000",
+  "attributionCodes": [
+    "celo_41b8d909dcde"
+  ],
+  "attributionSuffix": "0x63656c6f5f343162386439303964636465110080218021802180218021802180218021",
+  "mode": "live",
+  "startedAt": "2026-11-27T14:36:00.423Z",
+  "steps": {
+    "balances": {
+      "usdt": "1028228",
+      "usdtHuman": "1.028228",
+      "celoWei": "2466656709992971893",
+      "idrxBefore": "0"
+    },
+    "preview": {
+      "kind": "preview",
+      "sellAmount": "1000000",
+      "buyAmount": "1844651",
+      "feeAmount": "199",
+      "takerPays": "1000000",
+      "rateRay": "54200008565305849182311",
+      "availableSellAmount": "402524620220"
+    },
+    "firmQuote": {
+      "rfqId": "rfq_8MOq_ogcAwK_gQMy",
+      "sellAmount": "1000000",
+      "buyAmount": "1843970",
+      "feeAmount": "199",
+      "takerPays": "1000000",
+      "rateRay": "54220025271560817149953",
+      "expiresAt": "2026-11-27T14:38:16.000Z",
+      "reactor": "0xa9AA0a64769cBed4d3B1Ceb4Df01CdE915C235b3"
+    },
+    "approval": {
+      "hash": "0xdc628523d91de9e06826d4001af3faef5ec7590f980df7a51d0b27b0ab67c5cf",
+      "blockNumber": "83889424",
+      "gasUsed": "53953",
+      "status": "success"
+    },
+    "swap": {
+      "hash": "0x6413cd8361e2f1c06d09f08663cfb23550020044d9c94fb472bfa18c15fa30c1",
+      "blockNumber": "83889434",
+      "gasUsed": "196493",
+      "status": "success"
+    },
+    "submitReport": {
+      "httpStatus": 200
+    },
+    "idrxReceived": {
+      "balanceBefore": "0",
+      "balanceAfter": "1843970",
+      "received": "1843970",
+      "receivedHuman": "18439.7"
+    },
+    "payout": {
+      "hash": "0xf9f01ba3f6c8f867838b25d38c8ebd4e4fdd2ad8872ed7c27a4cf2f61cf7147c",
+      "blockNumber": "83889462",
+      "gasUsed": "58848",
+      "status": "success",
+      "amount": "1843970",
+      "amountHuman": "18439.7",
+      "recipient": "0xAC9BD03F89C71A028107809432F27CbE16DF1aF8"
+    }
+  },
+  "status": "completed",
+  "finishedAt": "2026-11-27T14:37:10.554Z"
+}

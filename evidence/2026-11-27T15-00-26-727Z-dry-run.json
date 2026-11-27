@@ -1,0 +1,33 @@
+{
+  "agent": "idrx-payout-agent",
+  "repo": "belski21-growl/idrx-payout-agent",
+  "chainId": 42220,
+  "taker": "0x8F3E972f8006aE76D55385cF9Df8bF86160983AA",
+  "recipient": "0xAC9BD03F89C71A028107809432F27CbE16DF1aF8",
+  "sellAmountUsdt": "0.10",
+  "sellAtomic": "100000",
+  "attributionCodes": [
+    "celo_41b8d909dcde"
+  ],
+  "attributionSuffix": "0x63656c6f5f343162386439303964636465110080218021802180218021802180218021",
+  "mode": "dry-run",
+  "startedAt": "2026-11-27T15:00:16.361Z",
+  "steps": {
+    "balances": {
+      "usdt": "28228",
+      "usdtHuman": "0.028228",
+      "celoWei": "2404024674992971893",
+      "idrxBefore": "0"
+    },
+    "preview": {
+      "kind": "preview",
+      "sellAmount": "100000",
+      "buyAmount": "184548",
+      "feeAmount": "19",
+      "takerPays": "100000",
+      "rateRay": "54176149294492489758761",
+      "availableSellAmount": "402485718240"
+    }
+  },
+  "status": "dry-run-ok"
+}

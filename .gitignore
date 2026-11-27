@@ -4,3 +4,9 @@ node_modules/
 *.pem
 *work-wallet*
 .DS_Store
+
+# video demo artifacts (local only, not for the public repo)
+video/*.mp4
+video/frames/
+video/vo/
+video/vo-mix.wav

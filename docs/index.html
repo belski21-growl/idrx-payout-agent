@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>IDRX Payout Agent — Live Demo (Celo)</title>
+<title>IDRX Payout Agent - Live Demo (Celo)</title>
 <style>
   body { font-family: system-ui, -apple-system, sans-serif; max-width: 760px; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
   h1 { font-size: 1.6rem; } h2 { font-size: 1.2rem; margin-top: 2rem; border-bottom: 1px solid #ddd; padding-bottom: .3rem; }
@@ -20,9 +20,9 @@
 </style>
 </head>
 <body>
-<h1>IDRX Payout Agent — Live Demo</h1>
+<h1>IDRX Payout Agent - Live Demo</h1>
 <p>An agent that receives <strong>USD&#8376;</strong>, converts it to <strong>IDRX</strong> (Indonesian rupiah stablecoin) on
-<strong>Textile FX</strong>, and pays the IDRX out to a named recipient — all on <strong>Celo mainnet</strong>
+<strong>Textile FX</strong>, and pays the IDRX out to a named recipient - all on <strong>Celo mainnet</strong>
 (chain 42220), with an <strong>ERC-8021 attribution tag</strong> on every transaction and an
 <strong>ERC-8004</strong> on-chain identity.</p>
 <p>Built for the Celo <strong>“Agents Open for Business”</strong> hackathon (Loops House), track
@@ -38,7 +38,7 @@
 <table>
   <tr><th>Item</th><th>Live value</th></tr>
   <tr><td>Latest block</td><td id="vBlock">Loading…</td></tr>
-  <tr><td>ERC-8004 agent ID</td><td><strong>10131</strong> — owner: <span id="vOwner" class="addr">Loading…</span><br>
+  <tr><td>ERC-8004 agent ID</td><td><strong>10131</strong> - owner: <span id="vOwner" class="addr">Loading…</span><br>
     <span class="muted">Registry <span class="addr">0x8004A169FB4a3325136EB29fA0ceB6D2e539a432</span> ·
     <a href="https://celoscan.io/token/0x8004A169FB4a3325136EB29fA0ceB6D2e539a432?a=10131">token 10131 on CeloScan</a></span></td></tr>
   <tr><td>Work wallet CELO</td><td id="vCelo">Loading…</td></tr>
@@ -48,27 +48,33 @@
 </table>
 <p id="vErr" class="muted"></p>
 
-<h2>Payout status — read this first</h2>
-<p>The full <strong>$1.00 payout run has not happened yet</strong>: the work wallet holds about
-<strong>$0.32 USD&#8376;</strong> and Textile’s RFQ floor for this corridor is <strong>$1.00</strong>, so the
-wallet needs roughly <strong>$0.68 more USD&#8376;</strong> (or ~18 CELO to swap) before the payout
-can run. Everything below that is already proven live on mainnet:</p>
+<h2>Payout status - DONE</h2>
+<p>The full <strong>$1.00 payout run is done</strong>: on 27 Nov 2026 at 21:37 WIB the agent
+paid <strong>1.00 USD&#8376;</strong> on Textile FX and delivered <strong>18,439.70 IDRX</strong> to the
+named recipient (0xAC9B…1aF8, outside the team). Firm quote
+<code>rfq_8MOq_ogcAwK_gQMy</code>: pay 1.00 USD&#8376;, buy 1,843,970 atomic IDRX.
+The recipient balance in the live table above reads 18,439.70 IDRX. Everything below
+is already proven live on mainnet:</p>
 <table>
   <tr><th>What</th><th>Live proof</th></tr>
+  <tr><td>Funding swap: 14 CELO → 0.711710 USD&#8376; (Ubeswap V2)</td><td>Tx 0xa3f7fcb6… (block 83889289), 27 Nov 2026, after a user top-up of 13 + 3 CELO</td></tr>
+  <tr><td>Approve USD&#8376; to Textile reactor</td><td><a href="https://celoscan.io/tx/0xdc628523d91de9e06826d4001af3faef5ec7590f980df7a51d0b27b0ab67c5cf">tx 0xdc628523…</a>, block 83889424, success, gas 53,953</td></tr>
+  <tr><td>Textile swap: 1.00 USD&#8376; → 18,439.70 IDRX</td><td><a href="https://celoscan.io/tx/0x6413cd8361e2f1c06d09f08663cfb23550020044d9c94fb472bfa18c15fa30c1">tx 0x6413cd83…</a>, block 83889434, success, gas 196,493</td></tr>
+  <tr><td>Transfer 18,439.70 IDRX to recipient</td><td><a href="https://celoscan.io/tx/0xf9f01ba3f6c8f867838b25d38c8ebd4e4fdd2ad8872ed7c27a4cf2f61cf7147c">tx 0xf9f01ba3…</a>, block 83889462, success</td></tr>
   <tr><td>ERC-8004 registration (agent ID 10131)</td><td><a href="https://celoscan.io/tx/0x4fc5e5e4a8ee731ed6bcdbea4fe87cafc7c261f990189157d5e45c0a52c28982">tx 0x4fc5e5e4…</a>, block 83720943, 25 Nov 2026</td></tr>
   <tr><td>CELO → USD&#8376; swap #1: 2 CELO → 0.103105 USD&#8376;</td><td><a href="https://celoscan.io/tx/0x5e298f0181c21f9bc597796b88813db86f5fa8464ecd1da9978feb87c1ac3cba">tx 0x5e298f01…</a> (Ubeswap V2), 25 Nov 2026</td></tr>
   <tr><td>CELO → USD&#8376; swap #2: 4.25 CELO → 0.213413 USD&#8376;</td><td><a href="https://celoscan.io/tx/0xb75ff64792c8d9b21a1eef4513c44e7026ce6bc86c5cf605dc8c669ab9d0e458">tx 0xb75ff647…</a> (Ubeswap V2), block 83721910, 25 Nov 2026</td></tr>
   <tr><td>Textile RFQ floor $1.00 proven live</td><td>Firm request for 0.10 USD&#8376; rejected HTTP 400: “sellAmount is below the RFQ minimum (1000000 atomic units)”. Preview of the same size passes (preview does not enforce the floor).</td></tr>
-  <tr><td>Unit tests</td><td><code>npm test</code> — 23 passed / 0 failed (offline, no key)</td></tr>
+  <tr><td>Unit tests</td><td><code>npm test</code> - 23 passed / 0 failed (offline, no key)</td></tr>
 </table>
 
 <h2>How it works</h2>
 <ol>
   <li>Check USD&#8376; / CELO / IDRX balances (public RPC read).</li>
   <li>Preview a Textile RFQ quote for USD&#8376; → IDRX (free, no key, no signature).</li>
-  <li>Request a firm quote — keyless, with a free EIP-712 “Textile Taker Control” proof.</li>
+  <li>Request a firm quote - keyless, with a free EIP-712 “Textile Taker Control” proof.</li>
   <li>Approve USD&#8376; to the Textile reactor (once, only the shortfall).</li>
-  <li>Submit the swap — broadcasts <code>transactions.swap</code> exactly as returned.</li>
+  <li>Submit the swap - broadcasts <code>transactions.swap</code> exactly as returned.</li>
   <li>Transfer <strong>all</strong> IDRX received to the named recipient.</li>
   <li>Write an evidence JSON file with the quote, tx hashes, blocks, amounts, and fees.</li>
 </ol>
@@ -82,7 +88,7 @@ npm install
 npm test                                   # unit tests (offline, no key)
 node agent/idrx-payout-agent.mjs --dry-run # preview quote + plan, sends nothing</code></pre>
 <p>A live payout run needs a funded work wallet (≥ $1.00 USD&#8376;, the Textile floor) and the
-key via env var only — see the README. No live run is triggered from this page.</p>
+key via env var only - see the README. No live run is triggered from this page.</p>
 <p class="muted">Contracts: USD&#8376; <span class="addr">0x48065fbBE25f71C9282ddf5e1cD6D6A887483D5e</span> ·
 IDRX <span class="addr">0x18Bc5bcC660cf2B9cE3cd51a404aFe1a0cBD3C22</span> ·
 Textile LimitOrderReactor <span class="addr">0xa9AA0a64769cBed4d3B1Ceb4Df01CdE915C235b3</span></p>
@@ -117,7 +123,7 @@ async function load() {
     $("vRecv").textContent = Number(ethers.formatUnits(recv, 2)).toFixed(2) + " IDRX";
     $("vOwner").textContent = owner + (owner.toLowerCase() === WORK.toLowerCase() ? " ✓ (work wallet)" : "");
   } catch (e) {
-    $("vErr").textContent = "Live read failed (" + (e && e.message ? e.message : e) + "). Values above may be stale — verify on CeloScan instead.";
+    $("vErr").textContent = "Live read failed (" + (e && e.message ? e.message : e) + "). Values above may be stale - verify on CeloScan instead.";
   }
 }
 document.getElementById("refreshBtn").addEventListener("click", load);

@@ -1,0 +1,41 @@
+Script started on 2026-11-27 15:03:02+00:00 [COMMAND="bash record-demo-v2.sh" <not executed on terminal>]
+
+### 1 - PROBLEM: freelancers get paid in USDt, but local expenses need local currency. Manual conversion is slow. ###
+
+
+### 2 - LIVE DRY-RUN: the agent previews the USDt to IDRX bridge on Celo mainnet. Read-only, no key, no signature. ###
+
+2026-11-27T15:03:16.386Z IDRX Payout Agent — Celo mainnet (42220)
+2026-11-27T15:03:16.387Z Attribution code(s): celo_41b8d909dcde | suffix: 0x63656c6f5f343162386439303964636465110080218021802180218021802180218021
+2026-11-27T15:03:16.388Z Plan: swap 0.10 USD₮ -> IDRX, pay all IDRX to 0xAC9BD03F89C71A028107809432F27CbE16DF1aF8
+2026-11-27T15:03:16.388Z WARNING: below_minimum: notional $0.10 < $1 mainnet dollar floor (Textile RFQ docs)
+2026-11-27T15:03:16.388Z The live preview below is authoritative — if it also refuses, the run stops here with evidence.
+2026-11-27T15:03:25.117Z Balances — USD₮ 0.028228 | CELO 2.404024674992971893 | IDRX 0
+2026-11-27T15:03:25.118Z Requesting Textile preview quote (USD₮ -> IDRX)...
+2026-11-27T15:03:29.536Z Preview: sell 0.1 USD₮ -> buy ~1844.97 IDRX | fee 0.000019 USD₮ | rateRay 54191125058944047870697
+2026-11-27T15:03:29.544Z Evidence written: /home/hatch/workspace/scratch/celo-hackathon/evidence/2026-11-27T15-03-29-540Z-dry-run.json
+2026-11-27T15:03:29.544Z Dry run complete. No key was used, no signature was made, nothing was sent.
+2026-11-27T15:03:29.544Z To run live: CELO_WORK_KEY=0x... node agent/idrx-payout-agent.mjs --amount <size>
+
+### 3 - ON-CHAIN PROOF: ERC-8004 registration, recipient and work wallet balances, live on Celo mainnet. ###
+
+1843970 [1.843e6]
+0x8F3E972f8006aE76D55385cF9Df8bF86160983AA
+28228 [2.822e4]
+0
+  ERC-8004 agent ID 10131, owner 0x8F3E...83AA (tx 0x4fc5e5e4...82, block 83720943)
+  Ubeswap swap 1: 2 CELO -> 0.103105 USDt (tx 0x5e298f01...ba)
+  Ubeswap swap 2: 4.25 CELO -> 0.213413 USDt (tx 0xb75ff647...58)
+  Funding: 14 CELO swapped -> 0.711710 USDt (tx 0xa3f7fcb6...ff, block 83889289)
+  Textile FX floor: $1.00 minimum enforced
+
+### 4 - PAYOUT COMPLETE: 1.00 USDt swapped for 18,439.70 IDRX and delivered to the recipient. ###
+
+  Payout execution (firm quote rfq_8MOq_ogcAwK_gQMy, 1.00 USDt -> 18,439.70 IDRX):
+  Approve tx: 0xdc628523d91de9e06826d4001af3faef5ec7590f980df7a51d0b27b0ab67c5cf (block 83889424, success)
+  Textile FX Swap tx: 0x6413cd8361e2f1c06d09f08663cfb23550020044d9c94fb472bfa18c15fa30c1 (block 83889434, success)
+  Transfer IDRX tx: 0xf9f01ba3f6c8f867838b25d38c8ebd4e4fdd2ad8872ed7c27a4cf2f61cf7147c (block 83889462, success)
+  Balances after: Recipient IDRX 18,439.70 (verified), Work IDRX 0, Remaining USDt 0.028228
+  Status: Payout COMPLETE (23/23 tests passing)
+
+Script done on 2026-11-27 15:04:37+00:00 [COMMAND_EXIT_CODE="0"]

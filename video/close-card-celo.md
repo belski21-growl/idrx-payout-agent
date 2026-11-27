@@ -1,0 +1,17 @@
+IDRX Payout Agent
+Celo Mainnet (Chain 42220) - Stablecoin Corridors Track
+
+GitHub Repository:
+https://github.com/belski21-growl/idrx-payout-agent
+
+Live Demo Page:
+https://belski21-growl.github.io/idrx-payout-agent/
+
+Agent Identity:
+ERC-8004 Agent ID 10131 (Owner: 0x8F3E…83AA)
+
+Verification:
+23/23 tests passing | Two verified CELO/USD₮ swaps on Celo mainnet
+
+Notice:
+Live $1.00 payout run pending funding (Textile FX enforces $1.00 floor; work wallet currently holds $0.32 USD₮)
