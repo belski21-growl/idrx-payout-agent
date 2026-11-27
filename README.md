@@ -7,7 +7,18 @@ on every transaction and an **ERC-8004** on-chain identity.
 
 Built for the Celo **"Agents Open for Business"** hackathon (Loops House),
 track **Stablecoin Corridors**. Submission deadline: **7 Dec 2026, 09:00 GMT
-(16:00 WIB)**. AskBots review round 2 is 4 Dec — register before then.
+(16:00 WIB)**.
+
+## Live demo
+
+**https://belski21-growl.github.io/idrx-payout-agent/** — live on-chain status
+(latest block, ERC-8004 agent ID 10131, work-wallet balances, recipient
+balance), the proven-live evidence (registration tx, both CELO→USD₮ swaps,
+the $1.00 Textile floor test), and the try-it-yourself commands. No wallet
+connection, no signature — the page only reads public chain state.
+
+AskBots review round 1 (27 Nov 2026): **6.4/10** — the only next step was
+this live demo URL. Review round 2 is 4 Dec.
 
 ## What it does
 
@@ -32,9 +43,9 @@ USD₮ (work wallet) ──Textile FX RFQ──▶ IDRX ──transfer──▶ 
 
 Every transaction this agent sends carries a Schema 0 attribution suffix:
 code **`celo_41b8d909dcde`** (derived from this repo slug via `codeFromRepo`,
-verified against `@celo/attribution-tags`). If Loops House issues a
-different code at enrollment, set `LOOPS_ATTRIBUTION_CODE` and the agent
-tags with **both** codes — the program only credits its assigned code.
+verified against `@celo/attribution-tags`). Loops House issued code
+`celo_e94fe5d67772` at enrollment — set `LOOPS_ATTRIBUTION_CODE` and the agent
+tags with **both** codes; the program only credits its assigned code.
 
 Suffix: `0x63656c6f5f343162386439303964636465110080218021802180218021802180218021`
 
@@ -88,10 +99,11 @@ What that means in practice:
 - The preview/firm request for 0.10 USD₮ will very likely come back
   `400` (below minimum) or `no_quote`. The agent handles both cleanly:
   it writes an evidence file, sends nothing, and exits.
-- **The minimum-size question can only be settled by a live test** —
-  the docs publish the $1 default but not the per-corridor floor for
-  USD₮→IDRX on Celo, and a size that previews fine can still come back
-  `no_quote` at firm-request time.
+- **Settled by a live test 25 Nov 2026 ~23:02: the floor is $1.00.** A firm
+  request for 0.10 USD₮ came back HTTP 400 — “sellAmount is below the RFQ
+  minimum (1000000 atomic units)”. The preview of the same size passes
+  (preview does not enforce the floor), so a size that previews fine can
+  still be refused at firm-request time.
 - To reach $1 with faucet claims alone takes **10 × 0.10 USD₮ claims**
   (first come, first served, until 7 Dec). Plan the live test at
   `--amount 1.00` (or the size the preview accepts) once the wallet
@@ -133,15 +145,15 @@ Every run writes `evidence/<ISO-timestamp>-<kind>.json`:
 
 | Requirement | Status | Notes |
 |---|---|---|
-| ≥1 tagged Textile FX conversion on Celo mainnet in a listed corridor, used in the product flow | ⏳ NOT YET — code ready, awaiting live run | USD₮→IDRX is a listed Celo corridor. Blocked on the minimum-size question (see above) + faucet funding + coordinator go-ahead. |
+| ≥1 tagged Textile FX conversion on Celo mainnet in a listed corridor, used in the product flow | ⏳ NOT YET — code ready, awaiting live run | USD₮→IDRX is a listed Celo corridor. Floor proven live: $1.00 (see below). Wallet holds ~$0.32 USD₮ — needs ~$0.68 more before the payout run. |
 | Payment in a local stablecoin reaches a recipient outside the team | ⏳ NOT YET — code ready | Recipient `0xAC9B…1aF8` is outside the team; payout sends the full IDRX balance. |
-| ERC-8004 identity | ⏳ NOT YET — script ready, not executed | `agent/register-8004.mjs` + `agent/registration.json` prepared. Needs: publish the JSON, run register, add the ID, run setAgentURI. |
+| ERC-8004 identity | ✅ DONE — agent ID **10131** | Registered 25 Nov 2026, tx `0x4fc5e5e4…`, block 83720943; `ownerOf(10131)` = work wallet, `tokenURI` = registration.json. |
 | Attribution tag in every transaction | ✅ READY | ERC-8021 Schema 0 suffix on every tx the agent sends; pure encoder cross-checked against the official SDK each run. Loops-issued code still to be added after enrollment. |
 | Not arbitrage / self-trading / maker | ✅ BY DESIGN | One-way payout flow: USD₮ in from a client, IDRX out to a third-party recipient. No limit orders, no maker activity. |
 | Public GitHub repo at registration | ✅ READY | https://github.com/belski21-growl/idrx-payout-agent |
 | Code written 20 Nov – 7 Dec 2026 | ✅ | Fresh code, written 25 Nov 2026 for this hackathon. No AgentProof code reused. |
-| Loops House registration (before 4 Dec for AskBots review round 2) | ⏳ NOT YET — browser/parent path | Exact form fields could not be read from the public page (form is behind login); see `docs/registration-checklist.md` §4 for what is known + what to capture. |
-| Faucet claims (CELO 0.25, USD₮ 0.10) | ⏳ NOT YET — browser/parent path | Codes `PM2M4C` / `QXO4ND` (3rd char is the letter O). Not claimed by this builder. |
+| Loops House registration (before 4 Dec for AskBots review round 2) | ✅ DONE 25 Nov 2026 | Enrolled as “Belski Raizo” (Bandar Lampung, Indonesia); attribution code `celo_e94fe5d67772` issued; work wallet on file. AskBots round 1 review received 27 Nov (6.4/10). |
+| Faucet claims (CELO 0.25, USD₮ 0.10) | ❌ FAUCET BROKEN — funded another way | Claim API returns HTTP 500: the faucet relayer wallet holds ~0.048 CELO but needs 6.075 CELO. User funded the work wallet directly instead (6.53 CELO, 25 Nov). |
 
 ## Project layout
 
@@ -149,7 +161,7 @@ Every run writes `evidence/<ISO-timestamp>-<kind>.json`:
 agent/
   idrx-payout-agent.mjs   main agent: quote → approve → swap → payout → evidence
   register-8004.mjs       ERC-8004 register + setAgentURI (live runs need approval)
-  registration.json       ERC-8004 agentURI file (template — no agent ID yet)
+  registration.json       ERC-8004 agentURI file (agent ID 10131 recorded 25 Nov)
   lib/
     pure.mjs              dependency-free pure logic (tag codec, quote parsing, validation)
     config.mjs            public addresses + constants (no secrets)
